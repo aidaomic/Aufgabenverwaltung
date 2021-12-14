@@ -1,0 +1,22 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>150</x><y>270</y><w>210</w><h>170</h></coordinates><panel_attributes>t_tasks
+--
+task_id: int -PK
+title: VarChar NOT NULL
+shortdescription: VarChar NULL
+longdescription: VarChar NULL
+status: VarChar NOT NULL
+due: DateTime NOT NULL
+contact: int - FK NOT NULL
+url: VarChar NULL</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>270</y><w>210</w><h>170</h></coordinates><panel_attributes>t_contacts
+--
+contact_id: int - PK NOT NULL
+firstname: VarChar NOT NULL
+lastname: VarChar NOT NULL
+email: VarChar NOT NULL
+phone: VarChar NULL</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>340</y><w>220</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+contact of &gt;</panel_attributes><additional_attributes>10;20;200;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>30</y><w>210</w><h>170</h></coordinates><panel_attributes>t_project ???
+--
+project_id: int -PK
+title: VarChar NOT NULL</panel_attributes><additional_attributes></additional_attributes></element></diagram>
