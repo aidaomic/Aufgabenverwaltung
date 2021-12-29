@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
+@RequestMapping("/task")
 public class TaskController {
 
     @Autowired
@@ -14,13 +16,13 @@ public class TaskController {
     private TaskModel taskModel;
     private List<TaskModel> taskModelList;
 
-    @GetMapping("/task/all")
+    @GetMapping("all")
     public List<TaskModel> retrieveAllTasks(){
         taskModelList = taskService.getAllTasks();
         return taskModelList;
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("{id}")
     public TaskModel retrieveTask(@PathVariable int id){
         taskModel = taskService.getSpecificTask(id);
         return taskModel;
@@ -32,12 +34,12 @@ public class TaskController {
         return taskModelList;
     }
 
-    @PostMapping("/newTask/{task}")
+    @PostMapping("/new/{task}")
     public void newTask(@PathVariable TaskModel task){
         taskService.saveTask(task);
     }
 
-    @PutMapping("/updateTask/{task}")
+    @PutMapping("/update/{task}")
     public void updateTask(@PathVariable TaskModel task){
         taskService.updateTask(task);
     }
