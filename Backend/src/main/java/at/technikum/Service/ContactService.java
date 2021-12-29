@@ -1,4 +1,4 @@
 package at.technikum.Service;
 
-public class taskService {
+public class ContactService {
 }

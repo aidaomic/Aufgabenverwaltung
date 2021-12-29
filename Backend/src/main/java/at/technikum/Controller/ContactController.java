@@ -1,4 +1,4 @@
 package at.technikum.Controller;
 
-public class taskController {
+public class ContactController {
 }
