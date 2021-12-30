@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="btn btn-dark">New Task</button>
+        <button type="button" class="btn btn-dark"><svg-icon icon="plus"/> New Task</button>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -25,6 +25,7 @@
 <script>
 import router from '../router'
 import { mapGetters } from 'vuex';
+import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
 
 export default {
     name: "TaskListComponent",
@@ -63,6 +64,9 @@ export default {
                 }
             ]
         }
+    },
+    components: {
+        SvgIcon
     },
     methods: {
         navigateDetails(task) {

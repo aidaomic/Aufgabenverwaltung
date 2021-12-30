@@ -1,5 +1,6 @@
 <template>
     <div id="app" class="container">
+        <svg-sprite />
         <h1>Task Manager</h1>
         <router-view />
     </div>
@@ -7,10 +8,13 @@
 
 <script>
     import { mapActions } from 'vuex';
+    import SvgSprite from './assets/svg-icons/SvgSprite.vue'
 
     export default {
         name: 'App',
-        components: {},
+        components: {
+            SvgSprite
+        },
         methods: {
             ...mapActions(["fetchTasks"]),
         },
