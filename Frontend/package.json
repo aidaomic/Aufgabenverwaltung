@@ -1,5 +1,5 @@
 {
-  "name": "aufgabenverwaltung-frontend",
+  "name": "TaskManager",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,8 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "sass-loader": "^10.1.1",
-    "vue": "^3.2.26"
+    "vue": "^3.2.26",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
