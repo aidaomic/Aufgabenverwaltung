@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-on:click="navigateDetails(task)" v-for="task in mockTasks" :key="task.id">
+                <tr v-on:click="navigateDetails(task)" v-for="task in getAllTasks" :key="task.id">
                     <td>{{ task.title }}</td>
                     <td>{{ task.short_description }}</td>
                     <td>{{ task.status }}</td>
@@ -24,6 +24,7 @@
 
 <script>
 import router from '../router'
+import { mapGetters } from 'vuex';
 
 export default {
     name: "TaskListComponent",
@@ -67,7 +68,8 @@ export default {
         navigateDetails(task) {
             router.push({ name: 'Details', params: {taskId: task.id}});
         }
-    }
+    },
+    computed: mapGetters(["getAllTasks"]),
 }
 </script>
 
