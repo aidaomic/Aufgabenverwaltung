@@ -36,11 +36,11 @@ $black:    #000 !default;
 // // fusv-enable
 
 // scss-docs-start color-variables
-// $blue:    #0d6efd !default;
+$blue:    #0d6efd !default;
 // $indigo:  #6610f2 !default;
 // $purple:  #6f42c1 !default;
 // $pink:    #d63384 !default;
-$red:     #E91E63;
+// $red:     #dc3545 !default;
 // $orange:  #fd7e14 !default;
 // $yellow:  #ffc107 !default;
 // $green:   #198754 !default;
@@ -67,12 +67,12 @@ $red:     #E91E63;
 // // scss-docs-end colors-map
 
 // // scss-docs-start theme-color-variables
-// $primary:       $blue !default;
+$primary:       $blue !default;
 // $secondary:     $gray-600 !default;
 // $success:       $green !default;
 // $info:          $cyan !default;
 // $warning:       $yellow !default;
-// $danger:        $red !default;
+$danger:         #E91E63;
 // $light:         $gray-100 !default;
 // $dark:          $gray-900 !default;
 // // scss-docs-end theme-color-variables

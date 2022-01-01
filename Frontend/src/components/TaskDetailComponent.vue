@@ -37,7 +37,7 @@
         </div>
         <div class="col-3">
             <button v-on:click="navigateBack()" type="button" class="btn btn-light d-block mb-2 ms-auto"><svg-icon icon="chevron-left"/></button>
-            <button type="button" class="btn btn-dark d-block mb-2 ms-auto"><svg-icon icon="pen"/> Edit Task</button>
+            <button v-on:click="navigateEdit(task)" type="button" class="btn btn-dark d-block mb-2 ms-auto"><svg-icon icon="pen"/> Edit Task</button>
             <button type="button" class="btn btn-danger text-white d-block mb-2 ms-auto"><svg-icon icon="trash"/> Delete</button>
         </div>
     </div>
@@ -62,6 +62,9 @@ export default {
     methods: {
         navigateBack() {
             router.go(-1)
+        },
+        navigateEdit(task) {
+            router.push({ name: 'EditForm', params: {taskId: task.id}});
         },
         StatusClass(status){
             return getStatusValues(status)

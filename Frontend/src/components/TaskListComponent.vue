@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12 mb-3">
-            <button type="button" class="btn btn-dark float-end"><svg-icon icon="plus"/> New Task</button>
+            <button v-on:click="navigateAdd()" type="button" class="btn btn-dark float-end"><svg-icon icon="plus"/> New Task</button>
         </div>
          <div class="col-12">
             <table class="table table-hover">
@@ -40,6 +40,9 @@ export default {
     methods: {
         navigateDetails(task) {
             router.push({ name: 'Details', params: {taskId: task.id}});
+        },
+        navigateAdd() {
+            router.push({ name: 'AddForm'});
         },
         StatusClass(status){
             return getStatusValues(status)

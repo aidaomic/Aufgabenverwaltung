@@ -1,6 +1,7 @@
 .status{
     padding: $status-due-date-padding-vertical $status-due-date-padding-horizontal;
     border-radius: $status-due-date-border-radius;
+    white-space: nowrap;
 
     &.status{
         @include status-colours("pink");

@@ -1,5 +1,6 @@
 @mixin due-date-colours($class, $colour) {
     &.#{$class}{
+        white-space: nowrap;
         padding: $status-due-date-padding-vertical $status-due-date-padding-horizontal;
         border-radius: $status-due-date-border-radius;
         color: $white;
