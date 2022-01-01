@@ -1,24 +1,28 @@
 <template>
-    <div>
-        <button type="button" class="btn btn-dark"><svg-icon icon="plus"/> New Task</button>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Due Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-on:click="navigateDetails(task)" v-for="task in getAllTasks" :key="task.id">
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.short_description }}</td>
-                    <td>{{ task.status }}</td>
-                    <td>{{ task.due }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <button type="button" class="btn btn-dark float-end"><svg-icon icon="plus"/> New Task</button>
+        </div>
+         <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-on:click="navigateDetails(task)" v-for="task in getAllTasks" :key="task.id">
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.short_description }}</td>
+                        <td><span class="status" v-bind:class="StatusClass(task.status)?.colour"><svg-icon v-bind:icon="StatusClass(task.status)?.icon"/> {{ task.status }}</span></td>
+                        <td><span class="due-date" v-bind:class="DueDateClass(task.due)">{{ task.due }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -26,54 +30,27 @@
 import router from '../router'
 import { mapGetters } from 'vuex';
 import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
+import {getDueDateColour, getStatusValues} from '../shared/helpers.js'
 
 export default {
     name: "TaskListComponent",
-    data() {
-        return {
-            mockTasks: [
-                {
-                    id: 0,
-                    title: 'test title',
-                    short_description: 'short description',
-                    long_description: 'long description',
-                    status: 'enum or so',
-                    due: '24. Nov 2021',
-                    contact: 'mail@to.com',
-                    url: 'www.exmaple.com'
-                },
-                {
-                    id: 1,
-                    title: 'test title',
-                    short_description: 'short description',
-                    long_description: 'long description',
-                    status: 'enum or so',
-                    due: '24. Nov 2021',
-                    contact: 'mail@to.com',
-                    url: 'www.exmaple.com'
-                },
-                {
-                    id: 2,
-                    title: 'test title',
-                    short_description: 'short description',
-                    long_description: 'long description',
-                    status: 'enum or so',
-                    due: '24. Nov 2021',
-                    contact: 'mail@to.com',
-                    url: 'www.exmaple.com'
-                }
-            ]
-        }
-    },
     components: {
         SvgIcon
     },
     methods: {
         navigateDetails(task) {
             router.push({ name: 'Details', params: {taskId: task.id}});
+        },
+        StatusClass(status){
+            return getStatusValues(status)
+        },
+        DueDateClass(dueDate){
+            return getDueDateColour(dueDate)
         }
     },
-    computed: mapGetters(["getAllTasks"]),
+    computed: {
+        ...mapGetters(["getAllTasks"])
+    }, 
 }
 </script>
 

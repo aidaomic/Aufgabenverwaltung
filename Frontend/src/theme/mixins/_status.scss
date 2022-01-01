@@ -1,0 +1,8 @@
+@mixin status-colours($colourName) {
+    $map: map-get($colour-maps, $colourName);
+
+    &.#{$colourName}{
+        color: map-get($map, #{$colourName}-900);
+        background: map-get($map, #{$colourName}-100);
+    }
+}

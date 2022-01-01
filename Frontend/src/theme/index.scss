@@ -1,5 +1,11 @@
 //Custom Theme
+@import './variables/';
+@import './mixins/';
 
+@import './button';
+@import './due-date';
+@import './status';
+@import './table';
 
 //Bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';

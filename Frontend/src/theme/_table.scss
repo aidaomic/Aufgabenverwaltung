@@ -1,0 +1,12 @@
+.table {
+    border-spacing: 0;
+    border-collapse: separate;
+
+    thead{
+        tr{
+            th{
+                font-size: $font-size-lg
+            }
+        }
+    }
+}

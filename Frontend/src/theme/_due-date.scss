@@ -1,0 +1,5 @@
+.due-date{
+    @include due-date-colours("pink", $pink-500);
+    @include due-date-colours("light-pink", $pink-200);
+    @include due-date-colours("orange", $orange-500);
+}

@@ -1,0 +1,13 @@
+.status{
+    padding: $status-due-date-padding-vertical $status-due-date-padding-horizontal;
+    border-radius: $status-due-date-border-radius;
+
+    &.status{
+        @include status-colours("pink");
+        @include status-colours("deep-purple");
+        @include status-colours("blue");
+        @include status-colours("teal");
+        @include status-colours("orange");
+    }
+}
+

@@ -23,31 +23,101 @@ const actions = {
         const response = [
             {
                 id: '0',
-                title: 'test title',
+                title: 'Task numero zero',
                 short_description: 'short description',
                 long_description: 'long description',
-                status: 'enum or so',
-                due: '24. Nov 2021',
+                status: 'Idea',
+                due: '30. Dec 2021',
                 contact: 'mail@to.com',
                 url: 'www.exmaple.com'
             },
             {
                 id: '1',
-                title: 'test title',
+                title: 'Task numero uno',
                 short_description: 'short description',
                 long_description: 'long description',
-                status: 'enum or so',
-                due: '24. Nov 2021',
+                status: 'Doing',
+                due: '01. Jan 2022',
                 contact: 'mail@to.com',
                 url: 'www.exmaple.com'
             },
             {
                 id: '2',
-                title: 'test title',
+                title: 'Task numero due',
                 short_description: 'short description',
                 long_description: 'long description',
-                status: 'enum or so',
-                due: '24. Nov 2021',
+                status: 'Todo Next',
+                due: '05. Jan 2022',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '3',
+                title: 'Task numero tre',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'in Review',
+                due: '08. Jan 2022',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '4',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Done',
+                due: '03. Jan 2022',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '5',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Done',
+                due: '02. Jan 2022',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '5',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Doing',
+                due: '02. Jan 2022',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '6',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Doing',
+                due: '31. Dec 2021',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '7',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Doing',
+                due: '29. Dec 2021',
+                contact: 'mail@to.com',
+                url: 'www.exmaple.com'
+            },
+            {
+                id: '8',
+                title: 'Task numero quattro',
+                short_description: 'short description',
+                long_description: 'long description',
+                status: 'Doing',
+                due: '28. Dec 2021',
                 contact: 'mail@to.com',
                 url: 'www.exmaple.com'
             }

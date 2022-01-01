@@ -1,7 +1,7 @@
 <template>
     <div id="app" class="container">
         <svg-sprite />
-        <h1>Task Manager</h1>
+        <h1 class="my-5">Task Manager</h1>
         <router-view />
     </div>
 </template>
