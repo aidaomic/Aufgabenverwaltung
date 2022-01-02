@@ -36,9 +36,10 @@
 
                 <div class="form-group col-6">
                     <label for="formTaskContact">Contact</label>
-                    <input v-model="task.contact" type="text" class="form-control" id="formTaskContact" placeholder="mail@to.com">
+                    <AutoComplete id="formTaskContact" v-model="task.contact" :suggestions="filteredContactList" @complete="searchContact($event)" field="email" />
                 </div>
             </div>
+
 
             <div class="form-group mb-3">
                 <label for="formTaskShortDescription">Short Description</label>
@@ -61,6 +62,8 @@
     import store from '../store'
     import Datepicker from 'vue3-datepicker'
 
+    import AutoComplete from 'primevue/autocomplete';
+
     export default {
         name: "TaskEditComponent",
         data() {
@@ -76,12 +79,27 @@
                     url: String
                 },
 
-                formType: String 
+                formType: String ,
+
+                contacts: [
+                    {"email": "example@mail.com"},
+                    {"email": "mail@to.com"},
+                    {"email": "email@at.com"},
+                    {"email": "unknown@blup.com"},
+                ],
+
+                searchWord: '',
+
+                showSuggestions: false,
+
+                selectedCountry: null,
+                filteredContactList: null
             }
         },
 
         components: {
-            Datepicker
+            Datepicker,
+            AutoComplete
         },
 
         created: function() {
@@ -120,10 +138,23 @@
 
             getDate(){
                 return new Date();
+            },
+
+            searchContact(event) {
+                    if (!event.query.trim().length) {
+                        this.filteredContactList = [...this.contacts];
+                    }
+                    else {
+                        this.filteredContactList = this.contacts.filter((contact) => {
+                            return contact.email.toLowerCase().startsWith(event.query.toLowerCase());
+                        });
+                    }
             }
+            
         }
     }
 </script>
 
 <style scoped>
+
 </style>
