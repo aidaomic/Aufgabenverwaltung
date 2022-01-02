@@ -5,12 +5,10 @@
                 <h2>{{task.title}}</h2>
             </div>
             
-
             <div class="row">
                 <div class="col-6 mb-4">
                     <h3 class="h5">Status</h3>
                     <span class="status" v-bind:class="StatusClass(task.status)?.colour"><svg-icon v-bind:icon="StatusClass(task.status)?.icon"/> {{ task.status }}</span>
-
                 </div>
 
                 <div class="col-6 mb-4">
@@ -38,7 +36,7 @@
         <div class="col-3">
             <button v-on:click="navigateBack()" type="button" class="btn btn-light d-block mb-2 ms-auto"><svg-icon icon="chevron-left"/></button>
             <button v-on:click="navigateEdit(task)" type="button" class="btn btn-dark d-block mb-2 ms-auto"><svg-icon icon="pen"/> Edit Task</button>
-            <button type="button" class="btn btn-danger text-white d-block mb-2 ms-auto"><svg-icon icon="trash"/> Delete</button>
+            <button v-on:click="handleDelete(task.id)" type="button" class="btn btn-danger text-white d-block mb-2 ms-auto"><svg-icon icon="trash"/> Delete</button>
         </div>
     </div>
 </template>
@@ -48,6 +46,8 @@ import store from '../store'
 import router from '../router'
 import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
 import {getDueDateColour, getStatusValues} from '../shared/helpers.js'
+import { mapActions } from 'vuex';
+
 
 export default {
     name: "TaskDetailComponent",
@@ -60,6 +60,7 @@ export default {
         SvgIcon
     },
     methods: {
+        ...mapActions(["deleteTask"]),
         navigateBack() {
             router.go(-1)
         },
@@ -71,6 +72,11 @@ export default {
         },
         DueDateClass(dueDate){
             return getDueDateColour(dueDate)
+        },
+
+        handleDelete(task){
+            this.deleteTask(task)
+            this.navigateBack()
         }
     },
 };

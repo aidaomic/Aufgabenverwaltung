@@ -1,7 +1,11 @@
 import axios from 'axios';
+import { SORT_KEYS } from '../../shared/enum/SortKeys';
 
 const state = {
-  tasks: []
+    sort: {"sortBy": 'id', "sortAscending": true},
+    sortBy: 'id',
+	sortAscending: true,
+    tasks: []
 };
 
 const getters = {
@@ -10,7 +14,41 @@ const getters = {
   },
   getTaskById: (state) => (id) => {
     return state.tasks.find(task => task.id === id)
-  }
+  },
+
+  getAllTasksSorted(state){
+        let tasks = [...state.tasks]
+
+        if(state.sort.sortBy == SORT_KEYS.STATUS){
+            let sortingArray = ["Idea", "Todo Next", "Doing", "in Review", "Done"]
+
+            //tasks.sort((a, b) => sortingArray.indexOf(a) - sortingArray.indexOf(b));
+
+            tasks.sort((a,b) => {
+                if(sortingArray.indexOf(a.status) > sortingArray.indexOf(b.status)){return 1}
+                if(sortingArray.indexOf(a.status) < sortingArray.indexOf(b.status)){return -1}
+                return 0
+            })
+        }
+
+        if(state.sort.sortBy == SORT_KEYS.DUE_DATE){
+            tasks.sort((a,b) => { 
+                if(new Date(a.due) > new Date(b.due)){return 1}
+                if(new Date(a.due) < new Date(b.due)){return -1}
+                return 0
+            })
+        }
+
+        if(!state.sort.sortAscending){
+            tasks.reverse()
+        }
+
+        return tasks
+    },
+
+    getSortingValues: (state) => {
+        return state.sort
+    },
 };
 
 const actions = {
@@ -82,7 +120,7 @@ const actions = {
                 url: 'www.exmaple.com'
             },
             {
-                id: '5',
+                id: '9',
                 title: 'Task numero quattro',
                 short_description: 'short description',
                 long_description: 'long description',
@@ -150,12 +188,16 @@ const actions = {
     //DELETE
     async deleteTask({ commit }, id) {
         //TODO: NOT IMPLEMENTED
-        console.warn("NOT IMPLEMENTED")
+        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
 
         await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
         commit('removeTask', id);
-    }
+    },
+
+    changeSorting({commit}, key) {
+        commit('changeSorting', key);
+    },
 }
 
 const mutations = {
@@ -168,7 +210,16 @@ const mutations = {
           state.tasks.splice(index, 1, updatedTask);
         }
     },
-    removeTask:(state,id) => state.tasks = state.tasks.filter((task) => task.id !== id)
+    removeTask:(state,id) => state.tasks = state.tasks.filter((task) => task.id !== id),
+
+    changeSorting(state, key) {
+        if(key == state.sort.sortBy){
+            state.sort.sortAscending = !state.sort.sortAscending
+        }
+        else{
+            state.sort = {"sortBy": key, "sortAscending": true}
+        }
+    }
 };
 
 

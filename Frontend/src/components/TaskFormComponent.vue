@@ -3,6 +3,7 @@
         <div class="mb-4">
             <h2>{{formType}} Task</h2>
         </div>
+                    <button v-on:click="navigateBack()" type="button" class="btn btn-light d-block mb-2 ms-auto"><svg-icon icon="chevron-left"/></button>
         <form>
             <div class="form-group mb-3">
                 <label for="formTaskTitle">Title</label>
@@ -60,6 +61,7 @@
 
 <script>
     import store from '../store'
+    import router from '../router'
     import Datepicker from 'vue3-datepicker'
 
     import AutoComplete from 'primevue/autocomplete';
@@ -107,6 +109,9 @@
         },
 
         methods: {
+            navigateBack() {
+                router.go(-1)
+            },
             fetchData: function() {
                 var taskFromStore = store.getters.getTaskById(this.$route.params.taskId)
 
@@ -134,10 +139,6 @@
                     contact: "",
                     url: ""
                 }
-            },
-
-            getDate(){
-                return new Date();
             },
 
             searchContact(event) {

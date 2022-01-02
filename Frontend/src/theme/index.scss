@@ -9,5 +9,18 @@
 @import './status';
 @import './table';
 
+.sorting-chevrons{
+    display: inline-flex;
+    color: $gray-500;
+    flex-direction: column;
+    max-height: 1.5rem;
+    padding-bottom: .25rem;
+
+    .icon{
+        margin: 0;
+        margin: -.25rem 0;
+    }
+}
+
 //Bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';

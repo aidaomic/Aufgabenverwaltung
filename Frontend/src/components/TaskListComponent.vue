@@ -9,12 +9,20 @@
                     <tr>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Due Date</th>
+                        <th v-on:click="changeSorting('status')" scope="col">Status
+                            <svg-icon class="text-primary" v-if="getSortingValues.sortBy == 'status' && getSortingValues.sortAscending" icon="arrow-down"/> 
+                            <svg-icon class="text-primary" v-else-if="getSortingValues.sortBy == 'status' && !getSortingValues.sortAscending" icon="arrow-up"/> 
+                            <svg-icon class="text-secondary" v-else icon="switch-vertical"/>
+                        </th>
+                        <th v-on:click="changeSorting('dueDate')" scope="col">Due Date
+                            <svg-icon class="text-primary" v-if="getSortingValues.sortBy == 'dueDate' && getSortingValues.sortAscending" icon="arrow-down"/> 
+                            <svg-icon class="text-primary" v-else-if="getSortingValues.sortBy == 'dueDate' && !getSortingValues.sortAscending" icon="arrow-up"/> 
+                            <svg-icon class="text-secondary" v-else icon="switch-vertical"/>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-on:click="navigateDetails(task)" v-for="task in getAllTasks" :key="task.id">
+                    <tr v-on:click="navigateDetails(task)" v-for="task in getAllTasksSorted" :key="task.id">
                         <td>{{ task.title }}</td>
                         <td>{{ task.short_description }}</td>
                         <td><span class="status" v-bind:class="StatusClass(task.status)?.colour"><svg-icon v-bind:icon="StatusClass(task.status)?.icon"/> {{ task.status }}</span></td>
@@ -28,7 +36,7 @@
 
 <script>
 import router from '../router'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
 import {getDueDateColour, getStatusValues} from '../shared/helpers.js'
 
@@ -37,7 +45,12 @@ export default {
     components: {
         SvgIcon
     },
+    // data(){
+    //     return {
+    //     }
+    // },
     methods: {
+        ...mapActions(["changeSorting"]),
         navigateDetails(task) {
             router.push({ name: 'Details', params: {taskId: task.id}});
         },
@@ -49,10 +62,11 @@ export default {
         },
         DueDateClass(dueDate){
             return getDueDateColour(dueDate)
-        }
+        },
     },
+    
     computed: {
-        ...mapGetters(["getAllTasks"])
+        ...mapGetters(["getAllTasks", "getAllTasksSorted", "getSortingValues"]),
     }, 
 }
 </script>

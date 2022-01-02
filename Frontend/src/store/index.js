@@ -1,7 +1,7 @@
-import { createStore } from 'vuex'
+import Vuex from 'vuex'
 import tasks from './modules/tasks';
 
-const store = createStore({
+const store = new Vuex.Store({
     modules: {
         tasks
     }
