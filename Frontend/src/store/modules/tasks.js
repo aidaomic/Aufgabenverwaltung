@@ -3,8 +3,7 @@ import { SORT_KEYS } from '../../shared/enum/SortKeys';
 
 const state = {
     sort: {"sortBy": 'id', "sortAscending": true},
-    sortBy: 'id',
-	sortAscending: true,
+    filter: [],
     tasks: []
 };
 
@@ -16,13 +15,21 @@ const getters = {
     return state.tasks.find(task => task.id === id)
   },
 
-  getAllTasksSorted(state){
+  getAllTasksFilteredAndSorted(state){
         let tasks = [...state.tasks]
+        //filter
+        if(state.filter.length != 0){
+            tasks = tasks.filter(
+                function(item) {
+                  return this.indexOf(item.status) >= 0;
+                },
+                state.filter
+            );
+        }
 
+        //sort
         if(state.sort.sortBy == SORT_KEYS.STATUS){
             let sortingArray = ["Idea", "Todo Next", "Doing", "in Review", "Done"]
-
-            //tasks.sort((a, b) => sortingArray.indexOf(a) - sortingArray.indexOf(b));
 
             tasks.sort((a,b) => {
                 if(sortingArray.indexOf(a.status) > sortingArray.indexOf(b.status)){return 1}
@@ -48,6 +55,10 @@ const getters = {
 
     getSortingValues: (state) => {
         return state.sort
+    },
+
+    getFilterValues: (state) => {
+        return state.filters
     },
 };
 
@@ -198,6 +209,10 @@ const actions = {
     changeSorting({commit}, key) {
         commit('changeSorting', key);
     },
+
+    changeFilter({commit}, filters) {
+        commit('changeFilter', filters);
+    },
 }
 
 const mutations = {
@@ -219,6 +234,10 @@ const mutations = {
         else{
             state.sort = {"sortBy": key, "sortAscending": true}
         }
+    },
+
+    changeFilter(state, filters) {
+        state.filter = filters
     }
 };
 

@@ -1,0 +1,19 @@
+.form-check{
+    .form-check-input {
+        background-color: transparent;
+
+        &:focus{
+            box-shadow: 0 0 0 0.25rem #fff3;
+        }
+    }
+
+    .form-check-label{
+        color: $white;
+    }
+
+    @include checkbox-colours("pink");
+    @include checkbox-colours("deep-purple");
+    @include checkbox-colours("blue");
+    @include checkbox-colours("teal");
+    @include checkbox-colours("orange");
+}

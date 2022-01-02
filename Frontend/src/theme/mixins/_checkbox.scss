@@ -1,0 +1,17 @@
+@mixin checkbox-colours($colourName) {
+    $map: map-get($colour-maps, $colourName);
+
+    &.#{$colourName}{
+        .form-check-input {
+            &:checked{
+                background-color: map-get($map, #{$colourName}-100);
+                border-color: map-get($map, #{$colourName}-100);
+            }
+            border-color: map-get($map, #{$colourName}-100);
+        }
+
+        .form-check-label{
+            color: map-get($map, #{$colourName}-100);
+        }
+    }
+}

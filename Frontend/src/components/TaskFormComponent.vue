@@ -3,7 +3,7 @@
         <div class="mb-4">
             <h2>{{formType}} Task</h2>
         </div>
-                    <button v-on:click="navigateBack()" type="button" class="btn btn-light d-block mb-2 ms-auto"><svg-icon icon="chevron-left"/></button>
+            <button v-on:click="navigateBack()" type="button" class="btn btn-light d-block mb-2 ms-auto"><svg-icon icon="chevron-left"/></button>
         <form>
             <div class="form-group mb-3">
                 <label for="formTaskTitle">Title</label>
@@ -63,6 +63,7 @@
     import store from '../store'
     import router from '../router'
     import Datepicker from 'vue3-datepicker'
+    import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
 
     import AutoComplete from 'primevue/autocomplete';
 
@@ -101,7 +102,8 @@
 
         components: {
             Datepicker,
-            AutoComplete
+            AutoComplete,
+            SvgIcon
         },
 
         created: function() {

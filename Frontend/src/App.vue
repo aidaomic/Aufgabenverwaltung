@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="container">
+    <div id="app" class="container-fluid">
         <svg-sprite />
         <h1 class="my-5">Task Manager</h1>
         <router-view />
