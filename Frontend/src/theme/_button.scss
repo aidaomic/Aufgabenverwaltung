@@ -1,3 +1,10 @@
 .btn{
     text-transform: uppercase;
+
+    &.btn-md-block{
+        @media only screen and (max-width: map-get($grid-breakpoints, md)) {
+            width: 100%; 
+            display:block;
+        }   
+    }
 }

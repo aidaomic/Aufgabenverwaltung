@@ -1,34 +1,42 @@
 <template>
     <div class="row">
-        <div class="bg-dark col-3 p-5">
-            <div class="form-check deep-purple">
-                <input class="form-check-input" type="checkbox" id="checkbox-idea" value="Idea" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
-                <label class="form-check-label" for="checkbox-idea"><svg-icon icon="bulb"/> Idea</label>
+         <div class="col-12">
+             <div class="float-right d-inline-flex">
+                <button v-on:click="navigateAdd()" type="button" class="btn btn-dark mb-3"><svg-icon icon="plus"/> New Task</button>
+
+                <div class="dropdown">
+                    <button v-on:click="toggleFilters()" class="btn btn-light d-block mb-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg-icon icon="filter"/>
+                    </button>
+                    <div v-bind:class="{ 'show': showFilters}" class="dropdown-menu bg-dark p-3" aria-labelledby="dropdownMenuButton">
+                        <div class="form-check deep-purple">
+                            <input class="form-check-input" type="checkbox" id="checkbox-idea" value="Idea" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
+                            <label class="form-check-label" for="checkbox-idea"><svg-icon icon="bulb"/> Idea</label>
+                        </div>
+
+                        <div class="form-check pink">
+                            <input class="form-check-input" type="checkbox" id="checkbox-todo-next" value="Todo Next" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
+                            <label class="form-check-label" for="checkbox-todo-next"><svg-icon icon="clipboard-list"/> Todo Next</label>
+                        </div>
+
+                        <div class="form-check orange">
+                            <input class="form-check-input" type="checkbox" id="checkbox-doing" value="Doing" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
+                            <label class="form-check-label" for="checkbox-doing"><svg-icon icon="writing"/> Doing</label>
+                        </div>
+
+                        <div class="form-check blue">
+                            <input class="form-check-input" type="checkbox" id="checkbox-in-review" value="in Review" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
+                            <label class="form-check-label" for="checkbox-in-review"><svg-icon icon="question-mark"/> in Review</label>
+                        </div>
+
+                        <div class="form-check teal">
+                            <input class="form-check-input" type="checkbox" id="checkbox-done" value="Done" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
+                            <label class="form-check-label" for="checkbox-done"><svg-icon icon="check"/> Done</label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-check pink">
-                <input class="form-check-input" type="checkbox" id="checkbox-todo-next" value="Todo Next" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
-                <label class="form-check-label" for="checkbox-todo-next"><svg-icon icon="clipboard-list"/> Todo Next</label>
-            </div>
-
-            <div class="form-check orange">
-                <input class="form-check-input" type="checkbox" id="checkbox-doing" value="Doing" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
-                <label class="form-check-label" for="checkbox-doing"><svg-icon icon="writing"/> Doing</label>
-            </div>
-
-            <div class="form-check blue">
-                <input class="form-check-input" type="checkbox" id="checkbox-in-review" value="in Review" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
-                <label class="form-check-label" for="checkbox-in-review"><svg-icon icon="question-mark"/> in Review</label>
-            </div>
-
-            <div class="form-check teal">
-                <input class="form-check-input" type="checkbox" id="checkbox-done" value="Done" v-model="checkedFilters" v-on:change="changeFilter(checkedFilters)">
-                <label class="form-check-label" for="checkbox-done"><svg-icon icon="check"/> Done</label>
-            </div>
-        </div>
-
-         <div class="col-9">
-             <button v-on:click="navigateAdd()" type="button" class="btn btn-dark float-end"><svg-icon icon="plus"/> New Task</button>
 
             <table class="table table-hover">
                 <thead>
@@ -73,7 +81,8 @@ export default {
     },
     data(){
         return {
-            checkedFilters: []
+            checkedFilters: [],
+            showFilters: false
         }
     },
     methods: {
@@ -90,6 +99,9 @@ export default {
         DueDateClass(dueDate){
             return getDueDateColour(dueDate)
         },
+        toggleFilters(){
+            this.showFilters = !this.showFilters
+        }
     },
     
     computed: {
