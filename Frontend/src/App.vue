@@ -16,10 +16,11 @@
             SvgSprite
         },
         methods: {
-            ...mapActions(["fetchTasks"]),
+            ...mapActions(["fetchTasks", "fetchContact"]),
         },
         created() {
             this.fetchTasks();
+            this.fetchContact();
         }
     }
 </script>

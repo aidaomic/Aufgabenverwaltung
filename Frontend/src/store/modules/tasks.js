@@ -1,5 +1,12 @@
-import axios from 'axios';
+//import axios from 'axios';
 import { SORT_KEYS } from '../../shared/enum/SortKeys';
+
+function formatDateToString(value) {
+    const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let formattedDate = value.getDate() + ". " + months[value.getMonth()] + " " + value.getFullYear()
+
+   return formattedDate
+}
 
 const state = {
     sort: {"sortBy": 'id', "sortAscending": true},
@@ -176,24 +183,26 @@ const actions = {
     },
 
     //POST
-    async addTodo({commit},title){
+    async addTask({commit}, task){
         //TODO: NOT IMPLEMENTED
-        console.warn("NOT IMPLEMENTED")
+        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
 
-        const response = await axios.post(`https://jsonplaceholder.typicode.com/todos`,
-        {title:title,completed:false})
-
-        commit('addTask',response.data)
+        // const response = await axios.post(`https://jsonplaceholder.typicode.com/todos`,
+        // {title:title,completed:false})
+        
+        //commit('addTask', response.data)
+        commit('addTask', task)
     },
 
     //PUT
-    async updateTodo({ commit }, updatedTask) {
+    async updateTask({ commit }, updatedTask) {
         //TODO: NOT IMPLEMENTED
-        console.warn("NOT IMPLEMENTED")
+        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
 
-        const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updatedTask.id}`, updatedTask);
+        //const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updatedTask.id}`, updatedTask);
 
-        commit('updateTask', response.data);
+        //commit('updateTask', response.data);
+        commit('updateTask', updatedTask);
     },
 
     //DELETE
@@ -201,7 +210,7 @@ const actions = {
         //TODO: NOT IMPLEMENTED
         console.warn("BACKEND OPERATION NOT IMPLEMENTED")
 
-        await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+        //await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
         commit('removeTask', id);
     },
@@ -217,12 +226,35 @@ const actions = {
 
 const mutations = {
     setTasks: (state, tasks) => (state.tasks = tasks),
-    addTask:(state,newTask) => state.tasks.unshift(newTask),
+    addTask:(state,newTask) => {
+        //TODO get id from db
+        const task = {
+            id: '20',
+            title: newTask.title,
+            short_description: newTask.short_description,
+            long_description: newTask.long_description,
+            status: newTask.status,
+            due: formatDateToString(newTask.due),
+            contact: newTask.contact,
+            url: newTask.url
+        }
+
+        state.tasks.unshift(task)
+    },
     updateTask: (state, updatedTask) => {
         const index = state.tasks.findIndex(task => task.id === updatedTask.id);
     
         if (index !== -1) {
-          state.tasks.splice(index, 1, updatedTask);
+            state.tasks[index] = {
+                id: updatedTask.id,
+                title: updatedTask.title,
+                short_description: updatedTask.short_description,
+                long_description: updatedTask.long_description,
+                status: updatedTask.status,
+                due: formatDateToString(updatedTask.due),
+                contact: updatedTask.contact,
+                url: updatedTask.url
+            }
         }
     },
     removeTask:(state,id) => state.tasks = state.tasks.filter((task) => task.id !== id),

@@ -37,7 +37,7 @@
 
                 <div class="form-group col-6">
                     <label for="formTaskContact">Contact</label>
-                    <AutoComplete id="formTaskContact" v-model="task.contact" :suggestions="filteredContactList" @complete="searchContact($event)" field="email" />
+                    <AutoComplete id="formTaskContact" v-model="task.contact" :suggestions="getAllContactsFiltered" @complete="searchContact($event)" field="email" placeholder="mail@to.com"/>
                 </div>
             </div>
 
@@ -54,8 +54,8 @@
                 <small class="form-text text-muted">The long description will be shown in the the detail view of the task.</small>
             </div>
 
-        <button type="submit" class="btn btn-dark float-end">Save</button>
         </form>
+        <button v-on:click="handleFormSubmit(task)" type="submit" class="btn btn-dark float-end">Save</button>
     </div>
 </template>
 
@@ -64,7 +64,7 @@
     import router from '../router'
     import Datepicker from 'vue3-datepicker'
     import SvgIcon from '../assets/svg-icons/SvgIcon.vue'
-
+    import { mapActions, mapGetters } from 'vuex';
     import AutoComplete from 'primevue/autocomplete';
 
     export default {
@@ -83,20 +83,6 @@
                 },
 
                 formType: String ,
-
-                contacts: [
-                    {"email": "example@mail.com"},
-                    {"email": "mail@to.com"},
-                    {"email": "email@at.com"},
-                    {"email": "unknown@blup.com"},
-                ],
-
-                searchWord: '',
-
-                showSuggestions: false,
-
-                selectedCountry: null,
-                filteredContactList: null
             }
         },
 
@@ -111,6 +97,8 @@
         },
 
         methods: {
+            ...mapActions(["addTask", "updateTask", "changeContactFilter", "addContact"]),
+
             navigateBack() {
                 router.go(-1)
             },
@@ -136,7 +124,7 @@
                     title: "",
                     short_description: "",
                     long_description: "",
-                    status: "",
+                    status: "Idea",
                     due: new Date(),
                     contact: "",
                     url: ""
@@ -144,17 +132,32 @@
             },
 
             searchContact(event) {
-                    if (!event.query.trim().length) {
-                        this.filteredContactList = [...this.contacts];
+                this.changeContactFilter(event.query)
+            },
+
+            handleFormSubmit(task){
+                if(typeof task.contact !== 'object'){
+                    const contactIndex = this.getAllContacts.findIndex(contact => contact.email == task.contact);
+                    if (contactIndex === -1) {
+                        this.addContact({email: task.contact})
                     }
-                    else {
-                        this.filteredContactList = this.contacts.filter((contact) => {
-                            return contact.email.toLowerCase().startsWith(event.query.toLowerCase());
-                        });
-                    }
+                }
+
+                if(this.formType == "Add"){
+                    this.addTask(task)
+                }
+
+                if(this.formType == "Edit"){
+                    this.updateTask(task)
+                }
+
+                this.navigateBack()
             }
-            
-        }
+        },
+
+        computed: {
+            ...mapGetters(["getAllContactsFiltered", "getAllContacts"]),
+        }, 
     }
 </script>
 
