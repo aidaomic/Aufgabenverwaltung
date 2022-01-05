@@ -28,13 +28,13 @@ public class ContactController {
             return contactModel;
     }
 
-    @PostMapping("/new/{contact}")
-    public void newContact(@PathVariable ContactModel contact){
+    @PostMapping("/new")
+    public void newContact(@RequestBody ContactModel contact){
         contactService.saveContact(contact);
     }
 
-    @PostMapping("/update/{contact}")
-    public void updateContact(@PathVariable ContactModel contact){
+    @PostMapping("/update")
+    public void updateContact(@RequestBody ContactModel contact){
         contactService.updateTask(contact);
     }
 

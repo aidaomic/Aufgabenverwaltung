@@ -34,13 +34,13 @@ public class TaskController {
         return taskModelList;
     }
 
-    @PostMapping("/new/{task}")
-    public void newTask(@PathVariable TaskModel task){
+    @PostMapping("/new")
+    public void newTask(@RequestBody TaskModel task){
         taskService.saveTask(task);
     }
 
-    @PutMapping("/update/{task}")
-    public void updateTask(@PathVariable TaskModel task){
+    @PutMapping("/update")
+    public void updateTask(@RequestBody TaskModel task){
         taskService.updateTask(task);
     }
 
