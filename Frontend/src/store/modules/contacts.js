@@ -1,4 +1,4 @@
-//import axios from 'axios';
+import axios from 'axios';
 
 const state = {
     contacts: [],
@@ -17,7 +17,7 @@ const getters = {
     
     else {
         let filteredContactList = state.contacts.filter((contact) => {
-            return contact.email.toLowerCase().startsWith(state.filter.toLowerCase());
+            return contact.toLowerCase().startsWith(state.filter.toLowerCase());
         });
 
         return filteredContactList
@@ -26,32 +26,44 @@ const getters = {
 };
 
 const actions = {
+    
+    //GET
+    async fetchContactById(mail){
+        //TODO
+        //to get Contact for new Task 
+        const response = await axios.get('http://localhost:8080/contact/'+mail);
+        console.log(response.data)
+        return response.data[0]
+    },
+    
     //GET
     async fetchContact({ commit }) {
-        // const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-
-        // commit('setTasks', response.data);
-        
-        const response = [
+        //Request Working
+       const response = await axios.get('http://localhost:8080/contact/all');
+        /*const response = [
             {email: "example@mail.com"},
             {email: "mail@to.com"},
             {email: "email@at.com"},
             {email: "unknown@blup.com"},
-        ]
+        ]*/
 
-        commit('setContacts', response);
+        commit('setContacts', response.data);
     },
 
     //POST
-    async addContact({commit}, contact){
+    async addContact(newContact){
         //TODO: NOT IMPLEMENTED
-        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
 
-        // const response = await axios.post(`https://jsonplaceholder.typicode.com/todos`,
-        // {title:title,completed:false})
-
-        //commit('addTask', response.data)
-        commit('addContact', contact)
+        //Request should be working
+         await axios.post('http://localhost:8080/contact/new',
+             {
+                 contact_id: '20',
+                e_mail: newContact.e_mail,
+                first_name: newContact.first_name,
+                last_name: newContact.last_name,
+                phone_number: newContact.phone_number
+             }
+            )
     },
 
     changeContactFilter({commit}, filter) {
@@ -63,16 +75,14 @@ const mutations = {
     setContacts: (state, contacts) => (state.contacts = contacts),
     addContact:(state, newContact) => {
         //TODO get id from db
-        // const task = {
-        //     id: '20',
-        //     title: newTask.title,
-        //     short_description: newTask.short_description,
-        //     long_description: newTask.long_description,
-        //     status: newTask.status,
-        //     due: formatDateToString(newTask.due),
-        //     contact: newTask.contact,
-        //     url: newTask.url
-        // }
+         /*const contact = {
+             contact_id: '20',
+             e_mail: newContact.e_mail,
+             first_name: newContact.first_name,
+             last_name: newContact.last_name,
+             phone_number: newContact.phone_number
+         }*/
+         
 
         state.contacts.unshift(newContact)
     },

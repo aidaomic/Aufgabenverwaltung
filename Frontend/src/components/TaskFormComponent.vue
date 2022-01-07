@@ -109,18 +109,18 @@
                 router.go(-1)
             },
             fetchData: function() {
+                console.log(store.getters.getTaskById(this.$route.params.taskId))
                 var taskFromStore = store.getters.getTaskById(this.$route.params.taskId)
 
-                if(taskFromStore != undefined){
-                    this.task = taskFromStore
-                    this.task.due = new Date(taskFromStore.due)
-
-                    this.formType = "Edit"
+                if(taskFromStore == undefined){
+                    this.task = this.getDefaultTask()
+                    this.formType = "Add"
                 }
                 else{
-                    this.task = this.getDefaultTask()
-
-                    this.formType = "Add"
+                    this.task = taskFromStore
+                    this.task.due = new Date(taskFromStore.due)
+                    console.log("YES")
+                    this.formType = "Edit"
                 }
             },
 
@@ -145,11 +145,15 @@
                 if(typeof task.contact !== 'object'){
                     const contactIndex = this.getAllContacts.findIndex(contact => contact.email == task.contact);
                     if (contactIndex === -1) {
+                        //TODO Form for adding contact with all attributes
                         this.addContact({email: task.contact})
                     }
                 }
-
+                
                 if(this.formType == "Add"){
+                    //TODO
+                    //returns id from Contact by Mail
+                    task.contact = this.searchContact()
                     this.addTask(task)
                 }
 

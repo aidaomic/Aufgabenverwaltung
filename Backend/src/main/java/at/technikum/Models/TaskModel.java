@@ -14,8 +14,8 @@ public class TaskModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "task_id")
-    private int task_id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "title")
     private String title;
@@ -27,7 +27,7 @@ public class TaskModel {
     private String long_description;
 
     @Column(name = "status")
-    private int status;
+    private String status;
 
     @Column(name = "due")
     private Date due;

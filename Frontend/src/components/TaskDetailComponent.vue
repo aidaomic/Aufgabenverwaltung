@@ -83,6 +83,7 @@ export default {
         },
 
         handleDelete(task){
+            console.log(task)
             this.deleteTask(task)
             this.navigateBack()
         }

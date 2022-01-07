@@ -27,23 +27,13 @@ public class TaskService {
         return taskModel;
     }
 
-    public List<TaskModel> getTasksByStatus(int status) {
-        taskModelList = (List<TaskModel>) taskRepository.findAll();
-        taskModelListByStatus = new ArrayList<>();
-        for (int i = 0; i < taskModelList.size(); i++){
-            if (status == taskModelList.get(i).getStatus())
-                taskModelListByStatus.add(taskModelList.get(i));
-        }
-        return taskModelListByStatus;
-    }
-
     public void saveTask(TaskModel task) {
-        task.setTask_id(0);
+        task.setId(0);
         taskRepository.save(task);
     }
 
     public void updateTask(TaskModel task) {
-        taskModel = getSpecificTask(task.getTask_id());
+        taskModel = getSpecificTask(task.getId());
         taskModel.setTitle(task.getTitle());
         taskModel.setShort_description(task.getShort_description());
         taskModel.setLong_description(task.getLong_description());

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:8081/")
 @RestController
 @RequestMapping("/contact")
 public class ContactController {
@@ -14,18 +15,17 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
     private ContactModel contactModel;
-    private List<ContactModel> contactModelList;
+    private List contactMailList;
 
     @GetMapping("/all")
-    public List<ContactModel> retrieveAllContacts(){
-        contactModelList = contactService.getAllContacts();
-        return contactModelList;
+    public List retrieveAllContacts(){
+        contactMailList = contactService.getAllContacts();
+        return contactMailList;
     }
 
-    @GetMapping("/{id}")
-    public ContactModel retrieveContact(@PathVariable int id){
-            contactModel = contactService.getSpecificContact(id);
-            return contactModel;
+    @GetMapping("/{mail}")
+    public int retrieveContact(@PathVariable String mail){
+            return contactService.getSpecificContactByMail(mail);
     }
 
     @PostMapping("/new")
@@ -35,7 +35,7 @@ public class ContactController {
 
     @PostMapping("/update")
     public void updateContact(@RequestBody ContactModel contact){
-        contactService.updateTask(contact);
+        contactService.updateContact(contact);
     }
 
     @DeleteMapping("/delete/{id}")

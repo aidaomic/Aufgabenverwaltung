@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("http://localhost:8081/")
 @RestController
 @RequestMapping("/task")
 public class TaskController {
@@ -16,21 +17,9 @@ public class TaskController {
     private TaskModel taskModel;
     private List<TaskModel> taskModelList;
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public List<TaskModel> retrieveAllTasks(){
         taskModelList = taskService.getAllTasks();
-        return taskModelList;
-    }
-
-    @GetMapping("{id}")
-    public TaskModel retrieveTask(@PathVariable int id){
-        taskModel = taskService.getSpecificTask(id);
-        return taskModel;
-    }
-
-    @GetMapping("/status/{status}")
-    public List<TaskModel> getTasksByStatus(@PathVariable int status){
-        taskModelList = taskService.getTasksByStatus(status);
         return taskModelList;
     }
 

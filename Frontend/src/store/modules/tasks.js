@@ -1,5 +1,5 @@
-//import axios from 'axios';
 import { SORT_KEYS } from '../../shared/enum/SortKeys';
+import axios from "axios";
 
 function formatDateToString(value) {
     const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -18,8 +18,15 @@ const getters = {
   getAllTasks: (state) => {
     return state.tasks
   },
-  getTaskById: (state) => (id) => {
-    return state.tasks.find(task => task.id === id)
+  getTaskById: (state) => {
+      return (id) => {
+          for(let i = 0; i < state.tasks.length; i++){
+              if(state.tasks[i].id == id) {
+                  return state.tasks[i]
+              }
+          }
+          //return state.tasks.find(task => task.id === id)
+      };
   },
 
   getAllTasksFilteredAndSorted(state){
@@ -72,147 +79,54 @@ const getters = {
 const actions = {
     //GET
     async fetchTasks({ commit }) {
-        // const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-
-        // commit('setTasks', response.data);
-        
-        const response = [
-            {
-                id: '0',
-                title: 'Task numero zero',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Idea',
-                due: '30. Dec 2021',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '1',
-                title: 'Task numero uno',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Doing',
-                due: '01. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '2',
-                title: 'Task numero due',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Todo Next',
-                due: '05. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '3',
-                title: 'Task numero tre',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'in Review',
-                due: '08. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '4',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Done',
-                due: '03. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '5',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Done',
-                due: '02. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '9',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Doing',
-                due: '02. Jan 2022',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '6',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Doing',
-                due: '31. Dec 2021',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '7',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Doing',
-                due: '29. Dec 2021',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            },
-            {
-                id: '8',
-                title: 'Task numero quattro',
-                short_description: 'short description',
-                long_description: 'long description',
-                status: 'Doing',
-                due: '28. Dec 2021',
-                contact: 'mail@to.com',
-                url: 'www.exmaple.com'
-            }
-        ]
-
-        commit('setTasks', response);
+        const response = await axios.get('http://localhost:8080/task/all');
+       commit('setTasks', response.data);
     },
 
     //POST
-    async addTask({commit}, task){
+    async addTask(task){
         //TODO: NOT IMPLEMENTED
-        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
-
-        // const response = await axios.post(`https://jsonplaceholder.typicode.com/todos`,
-        // {title:title,completed:false})
+        //geting contact and adding new conntact not implemented
+        //request is working
+        await axios.post('http://localhost:8080/task/new', {
+            title: task.title,
+            short_description: task.short_description,
+            long_description: task.long_description,
+            status: task.status,
+            due: task.due,
+            contact: task.contact,
+            url: task.url
+        })
         
-        //commit('addTask', response.data)
-        commit('addTask', task)
     },
 
     //PUT
-    async updateTask({ commit }, updatedTask) {
+    async updateTask(updatedTask) {
         //TODO: NOT IMPLEMENTED
         console.warn("BACKEND OPERATION NOT IMPLEMENTED")
+        //Request should be working
+        await axios.put('http://localhost:8080/task/update', updatedTask);
 
-        //const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updatedTask.id}`, updatedTask);
+        /*await axios.put('http://localhost:8080/task/update', {
+            id: "2",
+            title: "Title",
+            short_description: "shorty",
+            long_description: "long_description",
+            status: "Idea",
+            due: "2022-05-29",
+            contact: "1",
+            url: "ww.c0m"
+        });*/
 
         //commit('updateTask', response.data);
-        commit('updateTask', updatedTask);
+        //commit('updateTask', updatedTask);
     },
 
     //DELETE
-    async deleteTask({ commit }, id) {
-        //TODO: NOT IMPLEMENTED
-        console.warn("BACKEND OPERATION NOT IMPLEMENTED")
+    async deleteTask(id) {
 
-        //await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
-
-        commit('removeTask', id);
+        //Request should be working
+        await axios.delete(`http://localhost:8080/task/delete/${id}`);
     },
 
     changeSorting({commit}, key) {
@@ -234,7 +148,7 @@ const mutations = {
             short_description: newTask.short_description,
             long_description: newTask.long_description,
             status: newTask.status,
-            due: formatDateToString(newTask.due),
+            due: "2022-10-01",
             contact: newTask.contact,
             url: newTask.url
         }
